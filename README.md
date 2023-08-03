@@ -45,6 +45,8 @@ gunicorn -b 0.0.0.0:8000 'app:create_app()'
 
 ### APIs
 
+[API specs](./api_spec.yml)
+
 
 Save images:
 

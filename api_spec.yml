@@ -1,0 +1,169 @@
+openapi: 3.0.3
+info:
+  title: DICOM Reader
+  version: 1.0.0
+  description: API for managing DICOM images
+
+servers:
+  - url: http://localhost:8000/v1
+
+paths:
+  /assets:
+    get:
+      summary: Return all assets
+      tags:
+        - Assets
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AssetOutput'
+    post:
+      summary: Add a new DICOM asset
+      tags:
+        - Assets
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: Asset created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetOutput'
+  /assets/{id}:
+    get:
+      summary: Get asset by ID
+      tags:
+        - Assets
+      description: Retrieves the asset details using its ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of the asset to retrieve
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Asset details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetOutput'
+        '404':
+          description: Asset not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /assets/{id}/extract:
+    get:
+      summary: Extract DICOM tag from asset by ID
+      tags:
+        - Assets
+      description: Extracts a DICOM tag from the asset using its ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of the asset to extract the DICOM tag from
+          required: true
+          schema:
+            type: string
+        - name: tag
+          in: query
+          description: DICOM tag to extract in the format "group,element" (e.g., "0010,0010")
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: DICOM tag extracted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DicomTag'
+        '400':
+          description: Bad Request - Invalid DICOM tag format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /assets/{id}/convert:
+    get:
+      summary: Convert DICOM to PNG by ID
+      tags:
+        - Assets
+      description: Converts the DICOM image to PNG format using its ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of the asset (DICOM image) to convert
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: DICOM image converted to PNG successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversionResult'
+        '404':
+          description: Asset not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    AssetOutput:
+      type: object
+      properties:
+        id:
+          type: string
+        path:
+          type: string
+        name:
+          type: string
+    DicomTag:
+      type: object
+      properties:
+        attribute_value:
+          type: string
+          description: Tag attribute value
+        tag_name:
+          type: string
+          description: Tag name for this ID
+    ConversionResult:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Asset ID
+        name:
+          type: string
+          description: Asset Name
+        path:
+          type: string
+          description: URL to the original DICOM file
+        png_path:
+          type: string
+          description: URL to the converted PNG file
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
