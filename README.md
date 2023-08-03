@@ -2,46 +2,15 @@
 
 ## Features
 
-* Accept and upload a dicom file
-* Get one, or list all stored files
-* Extract and return a header based on a dicom tag
-* Converts dicom to PNG
+* Accept and Upload a DICOM File: Easily upload your DICOM files to the API for processing and storage.
+
+* Retrieve Single or Multiple Stored Files: You can fetch a single stored file by its unique ID or retrieve a list of all stored files.
+
+* Extract and Return DICOM Header: Extract specific information from the DICOM header by providing a DICOM tag, and receive the corresponding attribute value.
+
+* Convert DICOM to PNG: Seamlessly convert DICOM images to PNG format, making it easier to view and share.
 
 Executable app behaviour: [features](./features/api.feature)
-
-## Run locally
-
-### Docker
-
-The easiest way to run locally is using the docker container
-
-In the root directory, run
-
-```bash
-docker build -t dicom_service .
-```
-
-Now run
-
-```bash
-docker run -p 8000:8000 -v /your_png_store_path/:/app/png_store/ 
--v /your_image_store_path/:/app/file_store/ 
-dicom_service
-```
-
-### Pipenv
-
-```bash
-pip install pipenv
-```
-
-```bash
-pipenv shell
-```
-
-```bash
-gunicorn -b 0.0.0.0:8000 'app:create_app()'
-```
 
 ### APIs
 
@@ -87,7 +56,41 @@ curl --request GET \
   --header 'Content-Type: application/json'
 ```
 
-## Developement
+## Run locally
+
+### Docker
+
+The easiest way to run locally is using the docker container
+
+In the root directory, run
+
+```bash
+docker build -t dicom_service .
+```
+
+Now run
+
+```bash
+docker run -p 8000:8000 -v /your_png_store_path/:/app/png_store/ 
+-v /your_image_store_path/:/app/file_store/ 
+dicom_service
+```
+
+### Pipenv
+
+```bash
+pip install pipenv
+```
+
+```bash
+pipenv shell
+```
+
+```bash
+gunicorn -b 0.0.0.0:8000 'app:create_app()'
+```
+
+## Development
 
 Start by install all the dependencies
 
@@ -121,7 +124,17 @@ behave
 
 ### Contribution
 
-Before committing the files, run
-`pip freeze > requirements.txt`
-`isort **.py`
-`black **.py` 
+To contribute to the development of this API, please follow these steps:
+
+* Clone the forked repository to your local machine
+* Create a new branch for your changes
+* Make your changes and commit them
+* Before submitting a pull request, ensure that the code adheres to black coding standards. You can use the following commands to format your code:
+
+```bash
+pip freeze > requirements.txt
+isort **.py
+black **.py
+```
+
+* Push the changes to your GitHub repository:
