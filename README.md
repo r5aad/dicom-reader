@@ -112,3 +112,10 @@ For integration tests run:
 ```bash
 behave
 ```
+
+### Contribution
+
+Before committing the files, run
+`pip freeze > requirements.txt`
+`isort **.py`
+`black **.py` 
