@@ -106,3 +106,9 @@ pip freeze > requirements.txt
 ```bash
 python -m pytest tests
 ```
+
+For integration tests run:
+
+```bash
+behave
+```
