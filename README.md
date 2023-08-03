@@ -100,3 +100,9 @@ Update requirements file.
 ```bash
 pip freeze > requirements.txt
 ```
+
+### Run tests
+
+```bash
+python -m pytest tests
+```
