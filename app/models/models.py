@@ -1,6 +1,7 @@
-from flask_sqlalchemy import SQLAlchemy
-import uuid
 import os
+import uuid
+
+from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 

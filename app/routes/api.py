@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, jsonify, request
 
 import app.services.dicom_service as dicom_service
 
