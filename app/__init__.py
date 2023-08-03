@@ -12,5 +12,4 @@ def create_app():
         db.session.commit()
     from .routes.api import api_bp
     app.register_blueprint(api_bp)
-
     return app
