@@ -11,12 +11,7 @@ def handle_store_request():
         return jsonify({"error": "No file part in the request"}), 400
     file = request.files["file"]
     stored_asset = dicom_service.store(file)
-    response = {
-        "id": stored_asset.id,
-        "path": stored_asset.path,
-        "name": stored_asset.name,
-    }
-    return jsonify(response), 200
+    return jsonify(stored_asset.to_dict()), 200
 
 
 @api_bp.route("/assets", methods=["GET"])
