@@ -3,8 +3,11 @@
 ## Features
 
 * Accept and upload a dicom file
+* Get one, or list all stored files
 * Extract and return a header based on a dicom tag
 * Converts dicom to PNG
+
+Executable app behaviour: [features](./features/api.feature)
 
 ## Run locally
 
@@ -41,6 +44,7 @@ gunicorn -b 0.0.0.0:8000 'app:create_app()'
 ```
 
 ### APIs
+
 
 Save images:
 
